@@ -1,13 +1,13 @@
 var mongoose = require('mongoose');
 var Lane = mongoose.model('Lane');
-var errors = require('../utils/errors');
+var utils = require('utils');
 
 // Returns a list of all lanes
 exports.list = function(req, res) {
   Lane.find({'Area': 'wip'}, {"_id": 0}, function(err, lanes) {
     if (err) {
       return res.status(400).send({
-        message: errors.getErrorMessage(err)
+        message: utils.errors.getErrorMessage(err)
       });
     } else {
       res.json(lanes);

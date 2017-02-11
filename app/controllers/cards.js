@@ -1,14 +1,14 @@
 var mongoose = require('mongoose');
 var Card = mongoose.model('Card');
 var Event = mongoose.model('Event');
-var errors = require('../utils/errors');
+var utils = require('utils');
 
 // Returns a list of all cards
 exports.list = function(req, res) {
   Card.find().exec(function(err, cards) {
     if (err) {
       return res.status(400).send({
-        message: errors.getErrorMessage(err)
+        message: utils.errors.getErrorMessage(err)
       });
     } else {
       res.status(200).json(cards);
@@ -22,7 +22,7 @@ exports.get = function(req, res) {
   Event.find({CardId: card.Id}).sort({Position: 1}).exec(function(err, events) {
     if (err) {
       return res.status(400).send({
-        message: errors.getErrorMessage(err)
+        message: utils.errors.getErrorMessage(err)
       });
     } else {
       res.status(200).json({card: card, history: events});

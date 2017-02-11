@@ -1,7 +1,9 @@
 var mongoose = require('mongoose');
 
-module.exports = function() {
-  var db = mongoose.connect('mongo/kanban');
-  require('../app/models');
-  return db;
-};
+mongoose.connect('mongodb://mongo/kanban', function(err) {
+  if (err) throw err;
+});
+var db = mongoose.connection;
+require('models');
+
+module.exports = db;

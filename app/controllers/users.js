@@ -1,15 +1,15 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
-var errors = require('../utils/errors');
+var utils = require('utils');
 
 exports.list = function(req, res) {
-  User.find().exec(function(err, users) {
+  User.distinct("UserName", function(err, users) {
     if (err) {
       return res.status(400).send({
-        message: errors.getErrorMessage(err)
+        message: utils.errors.getErrorMessage(err)
       });
     } else {
-      res.json(users);
+      res.status(200).json(users);
     }
   });
 }
